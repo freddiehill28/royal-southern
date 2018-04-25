@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import {Alert, Container, Row, Col, CardGroup, Card, CardBody, CardFooter, Button, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 
 import {HashRouter, Redirect, Route, Switch} from 'react-router-dom';
-import banner from './../../../../images/yachtClubLogo.png'
+import banner from './../../../../images/yachtClubLogo.png';
+import Auth from './Auth';
 
 
 class Login extends Component {
@@ -10,19 +11,88 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {toRegister: false};
+    this.state = {
+      toRegister: false,
+      waitingForServer: false,
+      signInData: {
+        email: '',
+        password: ''
+      },
+      errors: {},
+      signedIn: false,
+    };
 
     this.toRegisterPage = this.toRegisterPage.bind(this);
+    this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   toRegisterPage(event) {
     this.setState({toRegister: true});
   }
 
+  login(event) {
+    fetch('api/account/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.state.signInData.email,
+        password: this.state.signInData.password,
+      })
+    }).then(res => res.json())
+      .then(json => {
+        console.log('json', json);
+        if (!json.success) {
+          let error = [];
+          error.push(json.message)
+          this.setState({
+            errors: error
+          })
+        }
+        else {
+          Auth.authenticateUser(json.token);
+          this.setState({
+            signedIn: true
+          })
+        }
+      })
+  }
+
+  onChange(event) {
+    const field = event.target.name;
+    const signInData = this.state.signInData;
+    signInData[field] = event.target.value;
+
+    this.setState({
+      signInData
+    })
+  }
+
   render() {
+
+    if (this.state.signedIn) {
+      return (<Redirect push to='/' />);
+    }
 
     if(this.state.toRegister) {
       return (<Redirect push to='/register' />);
+    }
+
+    let errors;
+    if (this.state.errors.length > 0) {
+      let errorList = [];
+      for (let i = 0; i < this.state.errors.length; i++)
+      {
+        errorList.push(<p>{this.state.errors[i]}</p>)
+      }
+
+      errors = (
+          <Alert color="danger">
+            {errorList}
+          </Alert>
+      )
     }
 
     return (
@@ -42,7 +112,7 @@ class Login extends Component {
                           <i className="icon-user"/>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" placeholder="Email"/>
+                      <Input type="text" name="email" placeholder="Email" value={this.state.signInData.email} onChange={this.onChange}/>
                     </InputGroup>
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -50,11 +120,12 @@ class Login extends Component {
                           <i className="icon-lock"/>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Password"/>
+                      <Input type="password" name="password" placeholder="Password" value={this.state.signInData.password} onChange={this.onChange}/>
                     </InputGroup>
+                    {errors}
                     <Row>
                       <Col xs="6">
-                        <Button className="px-4 button-colour">Login</Button>
+                        <Button className="px-4 button-colour" onClick={this.login}>Login</Button>
                       </Col>
                       <Col xs="6" className="text-right">
                         {/*TODO Forget password will be added at a later date, once the disertation is complete.

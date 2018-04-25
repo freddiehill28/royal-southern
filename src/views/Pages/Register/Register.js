@@ -4,6 +4,16 @@ import 'whatwg-fetch';
 import {HashRouter, Redirect, Route, Link, Switch} from 'react-router-dom';
 import savingSvg from '../../../../images/svg/saving.svg';
 
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email));
+}
+
+function validatePassword(password) {
+  var re = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+  return re.test(String(password));
+}
+
 class Register extends Component {
 
   constructor(props, context) {
@@ -43,8 +53,35 @@ class Register extends Component {
       waitingForServer: true
     });
 
-    if (user.password !== user.repeatPassword) {
-      this.setState({errors: 'passwords not the same'})
+    if (!user.firstName || !user.surname) {
+      let error = [];
+      error.push('Error: Please enter both first name and surname.');
+      this.setState({errors: error,
+        waitingForServer: false,})
+    }
+    else if (!validateEmail(user.email)) {
+      let error = [];
+      error.push('Error: Please enter a valid email address.');
+      this.setState({errors: error,
+        waitingForServer: false,})
+    }
+    else if (user.password !== user.repeatPassword) {
+      let error = [];
+      error.push('Error: Passwords do not match!');
+      this.setState({errors: error,
+        waitingForServer: false,})
+    }
+    else if (!validatePassword(user.password)) {
+      console.log(validatePassword(user.password));
+      let error = [];
+      error.push("Error: Password should");
+      error.push("•	Contain 8 or more characters");
+      error.push("•	Contain 1 or more upper case letters");
+      error.push("•	Contain 1 or more lower case letters");
+      error.push("•	Contain 1 or more numbers");
+      this.setState({errors: error,
+
+        waitingForServer: false,})
     }
     else {
       fetch('/api/account/signup', {
@@ -64,6 +101,14 @@ class Register extends Component {
           if (json.success) {
             this.setState({
               accountCreated: true,
+            })
+          }
+          else {
+            let error = [];
+            error.push(json.message);
+            this.setState({
+              waitingForServer: false,
+              errors: error,
             })
           }
         })
@@ -106,11 +151,19 @@ class Register extends Component {
     let errorsMarkup;
 
     if (this.state.errors.length > 0) {
+      let errorList = [];
+      for (let i = 0; i < this.state.errors.length; i++)
+      {
+        errorList.push(<p>{this.state.errors[i]}</p>)
+      }
+
       errorsMarkup = (
         <CardFooter className="p-4">
-          <Row>
-            <p>Passwords not the same</p>
-          </Row>
+
+            <Alert color="danger">
+              {errorList}
+            </Alert>
+
         </CardFooter>
       )
     }
@@ -169,8 +222,8 @@ class Register extends Component {
                     </InputGroupAddon>
                     <Input type="password" name={"repeatPassword"} placeholder="Repeat password" value={this.state.user.repeatPassword} onChange={this.processChange}/>
                   </InputGroup>
-                  {this.state.waitingForServer && <Button  color="success" block><img src={savingSvg}/></Button>}
-                  {!this.state.waitingForServer && <Button color="success" block onClick={this.submitForm}>Create Account</Button>}
+                  {this.state.waitingForServer && <Button className="mt-3 button-colour" block><img src={savingSvg}/></Button>}
+                  {!this.state.waitingForServer && <Button className="mt-3 button-colour" block onClick={this.submitForm}>Create Account</Button>}
                 </CardBody>
                 {errorsMarkup}
               </Card>
