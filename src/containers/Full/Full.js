@@ -50,6 +50,10 @@ import Alerts from '../../views/Notifications/Alerts/';
 import Badges from '../../views/Notifications/Badges/';
 import Modals from '../../views/Notifications/Modals/';
 
+// Purchase Orders
+import NewOrder from '../../views/PurchaseOrders/NewOrder';
+import SearchOrder from '../../views/PurchaseOrders/SearchOrder';
+
 class Full extends Component {
   render() {
     return (
@@ -62,6 +66,10 @@ class Full extends Component {
             <Container fluid>
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+
+                <Route path="/purchase-order/new" name="New Purchase Order" component={NewOrder}/>
+                <Route path="/purchase-order/search" name="Search Purchase Order" component={SearchOrder}/>
+
                 <Route path="/theme/colors" name="Colors" component={Colors}/>
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
