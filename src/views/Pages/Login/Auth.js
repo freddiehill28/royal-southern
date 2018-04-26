@@ -1,5 +1,3 @@
-import 'whatwg-fetch';
-
 class Auth {
 
   /**
@@ -17,12 +15,7 @@ class Auth {
    * @returns {boolean}
    */
   static isUserAuthenticated() {
-     fetch('/api/account/verify?token=' + localStorage.getItem('token'))
-      .then(res => res.json())
-      .then(json => {
-        console.log(json.success);
-        return (json.success);
-      })
+    return localStorage.getItem('token') !== null;
   }
 
   /**

@@ -4,6 +4,7 @@ import {
   Badge,
   Row,
   Col,
+  Container,
   Progress,
   Dropdown,
   DropdownToggle,
@@ -22,6 +23,10 @@ import {
   Input,
   Table
 } from 'reactstrap';
+import {Redirect} from 'react-router-dom';
+import Auth from './../Pages/Login/Auth'
+import savingSvg from '../../../images/svg/saving.svg'
+import banner from '../../../images/yachtClubLogo.png'
 
 const brandPrimary = '#20a8d8';
 const brandSuccess = '#4dbd74';
@@ -420,8 +425,28 @@ class Dashboard extends Component {
 
     this.state = {
       dropdownOpen: false,
-      radioSelected: 2
+      radioSelected: 2,
+      invalidUser: false,
+      loading: true,
     };
+  }
+
+  componentDidMount(){
+    fetch('/api/account/verify?token=' + localStorage.getItem('token'))
+      .then(res => res.json())
+      .then(json => {
+        if (!json.success) {
+          Auth.deauthenticateUser();
+          this.setState({
+            invalidUser: true
+          })
+        }
+        else {
+          this.setState({
+            loading: false
+          })
+        }
+      });
   }
 
   toggle() {
@@ -437,6 +462,23 @@ class Dashboard extends Component {
   }
 
   render() {
+
+    if(this.state.invalidUser) {
+      return (<Redirect push to='/' />);
+    }
+
+    if(this.state.loading) {
+      return (
+        <div className="app flex-row align-items-center">
+          <Container>
+            <Row className="justify-content-center">
+              <img className={"large-spacer"} src={banner} />
+              <img src={savingSvg}/>
+            </Row>
+          </Container>
+        </div>
+        )
+    }
 
     return (
       <div className="animated fadeIn">

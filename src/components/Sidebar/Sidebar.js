@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import {Badge, Nav, NavItem, NavLink as RsNavLink} from 'reactstrap';
 import classNames from 'classnames';
 import nav from './_nav';
@@ -7,15 +7,21 @@ import SidebarFooter from './../SidebarFooter';
 import SidebarForm from './../SidebarForm';
 import SidebarHeader from './../SidebarHeader';
 import SidebarMinimizer from './../SidebarMinimizer';
+import Auth from './../../views/Pages/Login/Auth';
 
 class Sidebar extends Component {
 
   constructor(props) {
     super(props);
 
+    this.state = {
+      logout: false,
+    };
+
     this.handleClick = this.handleClick.bind(this);
     this.activeRoute = this.activeRoute.bind(this);
     this.hideMobile = this.hideMobile.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
 
@@ -41,8 +47,19 @@ class Sidebar extends Component {
   //   return this.props.location.pathname.indexOf(routeName) > -1 ? "nav nav-second-level collapse in" : "nav nav-second-level collapse";
   // }
 
+  logout() {
+    console.log('logout')
+    Auth.deauthenticateUser();
+    this.setState({
+      logout: true,
+    })
+  }
 
   render() {
+
+    if(this.state.logout) {
+      return (<Redirect push to='/' />);
+    }
 
     const props = this.props;
 
@@ -148,13 +165,18 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <SidebarHeader/>
-        <SidebarForm/>
-        <nav className="sidebar-nav">
-          <Nav>
-            {navList(nav.items)}
-          </Nav>
-        </nav>
-        <SidebarFooter/>
+          <SidebarForm/>
+            <nav className="sidebar-nav">
+              <Nav>
+                {navList(nav.items)}
+                <NavItem className="mt-auto cursor-pointer">
+                  <RsNavLink className='nav-link nav-link-danger' active onClick={this.logout}>
+                    <i className='icon-logout' />Logout
+                  </RsNavLink>
+                </NavItem>
+              </Nav>
+            </nav>
+          <SidebarFooter/>
         <SidebarMinimizer/>
       </div>
     )

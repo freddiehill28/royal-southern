@@ -25,6 +25,7 @@ class Login extends Component {
     this.toRegisterPage = this.toRegisterPage.bind(this);
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.trySubmit = this.trySubmit.bind(this);
   }
 
   toRegisterPage(event) {
@@ -61,6 +62,12 @@ class Login extends Component {
   }
 
   onChange(event) {
+    if (event.key ==='Enter') {
+      console.log("trying")
+      this.login();
+      return;
+    }
+
     const field = event.target.name;
     const signInData = this.state.signInData;
     signInData[field] = event.target.value;
@@ -68,6 +75,13 @@ class Login extends Component {
     this.setState({
       signInData
     })
+  }
+
+  trySubmit(event) {
+    if(event.key === 'Enter') {
+      this.login(event);
+      return;
+    }
   }
 
   render() {
@@ -85,7 +99,7 @@ class Login extends Component {
       let errorList = [];
       for (let i = 0; i < this.state.errors.length; i++)
       {
-        errorList.push(<p>{this.state.errors[i]}</p>)
+        errorList.push(<p key={i}>{this.state.errors[i]}</p>)
       }
 
       errors = (
@@ -112,7 +126,7 @@ class Login extends Component {
                           <i className="icon-user"/>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" name="email" placeholder="Email" value={this.state.signInData.email} onChange={this.onChange}/>
+                      <Input type="text" name="email" placeholder="Email" value={this.state.signInData.email} onChange={this.onChange} onKeyPress={this.trySubmit}/>
                     </InputGroup>
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -120,7 +134,7 @@ class Login extends Component {
                           <i className="icon-lock"/>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" name="password" placeholder="Password" value={this.state.signInData.password} onChange={this.onChange}/>
+                      <Input type="password" name="password" placeholder="Password" value={this.state.signInData.password} onChange={this.onChange} onKeyPress={this.trySubmit} />
                     </InputGroup>
                     {errors}
                     <Row>

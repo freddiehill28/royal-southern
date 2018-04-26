@@ -154,7 +154,7 @@ class Register extends Component {
       let errorList = [];
       for (let i = 0; i < this.state.errors.length; i++)
       {
-        errorList.push(<p>{this.state.errors[i]}</p>)
+        errorList.push(<p key={i}>{this.state.errors[i]}</p>)
       }
 
       errorsMarkup = (
