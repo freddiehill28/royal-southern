@@ -18,14 +18,19 @@ export default {
       url: '/purchase-order',
       icon: 'icon-docs',
       children: [
+        ,{
+          name: 'My Orders',
+          url: '/purchase-order/mine',
+          icon: 'icon-doc'
+        },
         {
           name: 'New',
           url: '/purchase-order/new',
           icon: 'icon-plus'
         },
         {
-          name: 'Search',
-          url: '/purchase-order/search',
+          name: 'Find',
+          url: '/purchase-order/find',
           icon: 'icon-magnifier'
         }
       ]
