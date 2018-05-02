@@ -1,6 +1,8 @@
 #dist directory
 dist/
-.idea
+
+#itellij
+.idea/
 
 # Logs
 logs
