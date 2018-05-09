@@ -24,7 +24,7 @@ import Page404 from './views/Pages/Page404/'
 import Page500 from './views/Pages/Page500/'
 
 // Auth
-import Auth from './views/Pages/Login/Auth'
+import Auth from './modules/Auth'
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (

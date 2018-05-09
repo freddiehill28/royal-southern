@@ -4,7 +4,7 @@ import {Badge, Nav, NavItem, NavLink as RsNavLink} from 'reactstrap';
 import classNames from 'classnames';
 import nav from './_nav';
 import SidebarMinimizer from './../SidebarMinimizer';
-import Auth from './../../views/Pages/Login/Auth';
+import Auth from '../../modules/Auth';
 
 class Sidebar extends Component {
 

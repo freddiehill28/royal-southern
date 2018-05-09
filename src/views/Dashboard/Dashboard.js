@@ -24,7 +24,7 @@ import {
   Table
 } from 'reactstrap';
 import {Redirect} from 'react-router-dom';
-import Auth from './../Pages/Login/Auth'
+import Auth from '../../modules/Auth'
 import savingSvg from '../../../images/svg/saving.svg'
 import banner from '../../../images/yachtClubLogo.png'
 

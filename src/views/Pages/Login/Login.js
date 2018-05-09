@@ -3,7 +3,7 @@ import {Alert, Container, Row, Col, CardGroup, Card, CardBody, CardFooter, Butto
 
 import {HashRouter, Redirect, Route, Switch} from 'react-router-dom';
 import banner from './../../../../images/yachtClubLogo.png';
-import Auth from './Auth';
+import Auth from '../../../modules/Auth';
 
 
 class Login extends Component {
