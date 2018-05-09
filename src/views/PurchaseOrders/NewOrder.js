@@ -28,9 +28,11 @@ class NewOrder extends Component {
         rsrnDept: '',
         description: '',
         company: '',
-        unitPrice: '',
+
         price: '',
         paidOnCc: '',
+        unitPrice: '',
+        unitNumber: 1,
       }
     };
 
@@ -58,6 +60,7 @@ class NewOrder extends Component {
       orderFormData.unitPrice   = '';
       orderFormData.totalPrice       = '';
       orderFormData.paidOnCc    = '';
+      orderFormData.unitNumber = 1;
 
     this.setState({
       orderFormData: orderFormData,
@@ -107,24 +110,14 @@ class NewOrder extends Component {
                              value={this.state.orderFormData.date}
                              onChange={this.processChange} />
                     </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor={"quantity"}>Quantity</Label>
-                      <Input type={"text"} id={"quantity"} name={"quantity"} placeholder={"Quantity"}
-                             value={this.state.orderFormData.quantity}
-                             onChange={this.processChange} />
-                    </FormGroup>
+
                     <FormGroup>
                       <Label htmlFor={"rsrnDept"}>RSRN Dept.</Label>
                       <Input type={"text"} id={"rsrnDept"} name={"rsrnDept"} placeholder={"RSRN Dept."}
                              value={this.state.orderFormData.rsrnDept}
                              onChange={this.processChange} />
                     </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor={"description"}>Description</Label>
-                      <Input type={"textarea"} id={"description"} name={"description"} placeholder={"Description..."} rows={"4"}
-                             value={this.state.orderFormData.description}
-                             onChange={this.processChange} />
-                    </FormGroup>
+
                     <FormGroup>
                       <Label htmlFor={"company"}>Company/Supplier</Label>
                       <Input type={"text"} id={"company"} name={"company"} placeholder={"Company/Supplier"}
@@ -132,35 +125,52 @@ class NewOrder extends Component {
                              onChange={this.processChange} />
                     </FormGroup>
                     <FormGroup>
-                      <Label htmlFor={"unitPrice"}>Unit Price</Label>
-                      <div className={"controls"}>
-                        <InputGroup className="input-prepend">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>£</InputGroupText>
-                          </InputGroupAddon>
-                          <Input type={"text"} id={"unitPrice"} name={"unitPrice"} placeholder={"00.00"}
-                                 value={this.state.orderFormData.unitPrice}
-                                 onChange={this.processChange} />
-                        </InputGroup>
-                      </div>
-                    </FormGroup>
+                    <Label htmlFor={"paidOnCc"}>Paid on C/C</Label>
+                    <Input type={"text"} id={"paidOnCc"} name={"paidOnCc"} placeholder={"Paid on C/C"}
+                           value={this.state.orderFormData.paidOnCc}
+                           onChange={this.processChange} />
+                  </FormGroup>
                     <FormGroup>
-                      <Label htmlFor={"totalPrice"}>Total Price</Label>
+                    <Label htmlFor={"quantity"}>Quantity</Label>
+                    <Input type={"text"} id={"quantity"} name={"quantity"} placeholder={"Quantity"}
+                           value={this.state.orderFormData.quantity}
+                           onChange={this.processChange} />
+                  </FormGroup>
+                    <FormGroup>
+                    <Label htmlFor={"description"}>Description</Label>
+                    <Input type={"textarea"} id={"description"} name={"description"} placeholder={"Description..."} rows={"4"}
+                           value={this.state.orderFormData.description}
+                           onChange={this.processChange} />
+                  </FormGroup>
+                    <FormGroup>
+                      <Label htmlFor={"unitPrice"}>Unit Price</Label>
                       <Row>
-                        <Col md={"8"}>
+                        <Col md={"6"}>
                           <div className={"controls"}>
                             <InputGroup className="input-prepend">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>£</InputGroupText>
                               </InputGroupAddon>
-                              <Input type={"text"} id={"totalPrice"} name={"totalPrice"} placeholder={"00.00"}
-                                     value={this.state.orderFormData.totalPrice}
+                              <Input type={"text"} id={"unitPrice"} name={"unitPrice"} placeholder={"00.00"}
+                                     value={this.state.orderFormData.unitPrice}
                                      onChange={this.processChange} />
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for
                             </InputGroup>
                           </div>
                         </Col>
                         <Col md={"4"}>
+                              <Input type={"text"} id={"unitNumber"} name={"unitNumber"}
+                                     value={this.state.orderFormData.unitNumber}
+                                     onChange={this.processChange} />
+
+                        </Col>
+                        <Col md={"2"}>
+                          <div>units</div>
+                        </Col>
+                      </Row>
+                    </FormGroup>
+                    <FormGroup>
+                      <Label htmlFor={"totalPrice"}>Total Price</Label>
                           <div className={"controls"}>
                             <InputGroup className="input-prepend">
                               <InputGroupAddon addonType="prepend">
@@ -171,15 +181,8 @@ class NewOrder extends Component {
                                      onChange={this.processChange} />
                             </InputGroup>
                           </div>
-                        </Col>
-                      </Row>
                     </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor={"paidOnCc"}>Paid on C/C</Label>
-                      <Input type={"text"} id={"paidOnCc"} name={"paidOnCc"} placeholder={"Paid on C/C"}
-                             value={this.state.orderFormData.paidOnCc}
-                             onChange={this.processChange} />
-                    </FormGroup>
+
                   </CardBody>
                   <CardFooter className={"background-white"}>
                     <Button type="submit" size="sm" color="primary" onClick={this.submitForm}><i className="fa fa-dot-circle-o" /> Submit</Button>
