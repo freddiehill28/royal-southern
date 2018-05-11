@@ -1,31 +1,32 @@
 class ValidatePurchaseOrder {
   orderFormData = {
-    purchaseOrderNumber: '',
-    date: '',
-    quantity: '',
+    purchaseOrderNumber: 2,
+    date: today,
+    quantity: '1',
     rsrnDept: '',
     description: '',
     company: '',
-    unitPrice: '',
-    price: '',
+    totalPrice: '0.00',
     paidOnCc: '',
+    unitPrice: '0.00',
+    unitNumber: 1,
   }
 
-  static isValid (orderFormData) {
+  static isValid(orderFormData) {
     let returnObj = {
       success: true,
       message: "Success",
     };
 
-    if(!this.isWholeNumber(orderFormData.purchaseOrderNumber)) {
-      returnObj = {
-        success: false,
-        message: "Purchase Order Number is not a whole positive number.",
-      };
-      return returnObj;
-    }
+    // if (!this.isWholeNumber(orderFormData.purchaseOrderNumber)) {
+    //   returnObj = {
+    //     success: false,
+    //     message: "Purchase Order Number is not a whole positive number.",
+    //   };
+    //   return returnObj;
+    // }
 
-    if(!this.isDate(orderFormData.date)) {
+    if (!this.isDate(orderFormData.date)) {
       returnObj = {
         success: false,
         message: "Date is not valid, must be in the format yyyy-mm-dd.",
@@ -33,10 +34,26 @@ class ValidatePurchaseOrder {
       return returnObj;
     }
 
-    if(!this.isWholeNumber(orderFormData.quantity)) {
+    if (!this.isWholeNumber(orderFormData.quantity)) {
       returnObj = {
         success: false,
         message: "Quantity is not a whole positive number.",
+      };
+      return returnObj;
+    }
+
+    if (!this.has2MaxDecimalPlace(orderFormData.unitPrice)) {
+      returnObj = {
+        success: false,
+        message: "Unit price should have only 2 decimal places"
+      };
+      return returnObj;
+    }
+
+    if(!this.has2MaxDecimalPlace(orderFormData.totalPrice)) {
+      returnObj = {
+        success: false,
+        message: "Total price should have only 2 decimal places"
       };
       return returnObj;
     }
@@ -53,6 +70,11 @@ class ValidatePurchaseOrder {
 
   static isWholeNumber(n) {
     var re = /^(0|[1-9][0-9]*)$/;
+    return re.test(String(n));
+  }
+
+  static has2MaxDecimalPlace(n) {
+    var re = /[0-9]+(\.[0-9][0-9]?)?/;
     return re.test(String(n));
   }
 }

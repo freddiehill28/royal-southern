@@ -1,37 +1,38 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardHeader, CardFooter, Col,
-  FormGroup, Label, Input, Row, Button, InputGroupAddon, InputGroupText, InputGroup} from 'reactstrap';
+import {
+  Card, CardBody, CardHeader, CardFooter, Col,
+  FormGroup, Label, Input, Row, Button, InputGroupAddon, InputGroupText, InputGroup
+} from 'reactstrap';
 
 class NewOrder extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var mm = today.getMonth() + 1; //January is 0!
 
     var yyyy = today.getFullYear();
-    if(dd<10){
-      dd='0'+dd;
+    if (dd < 10) {
+      dd = '0' + dd;
     }
-    if(mm<10){
-      mm='0'+mm;
+    if (mm < 10) {
+      mm = '0' + mm;
     }
 
-    today = yyyy+'-'+mm+'-'+dd;
+    today = yyyy + '-' + mm + '-' + dd;
 
     this.state = {
       orderFormData: {
         purchaseOrderNumber: 2,
         date: today,
-        quantity: '',
+        quantity: '1',
         rsrnDept: '',
         description: '',
         company: '',
-
-        price: '',
+        totalPrice: '0.00',
         paidOnCc: '',
-        unitPrice: '',
+        unitPrice: '0.00',
         unitNumber: 1,
       }
     };
@@ -42,7 +43,7 @@ class NewOrder extends Component {
     this.submitForm = this.submitForm.bind(this);
   }
 
-  dateChange(event){
+  dateChange(event) {
     let date = event.target.value;
 
     this.setState({
@@ -53,31 +54,34 @@ class NewOrder extends Component {
   resetPage() {
     let orderFormData = this.state.orderFormData;
 
-      orderFormData.quantity    = '';
-      orderFormData.rsrnDept    = '';
-      orderFormData.description = '';
-      orderFormData.company     = '';
-      orderFormData.unitPrice   = '';
-      orderFormData.totalPrice       = '';
-      orderFormData.paidOnCc    = '';
-      orderFormData.unitNumber = 1;
+    orderFormData.quantity = '1';
+    orderFormData.rsrnDept = '';
+    orderFormData.description = '';
+    orderFormData.company = '';
+    orderFormData.unitPrice = '0.00';
+    orderFormData.totalPrice = '0.00';
+    orderFormData.paidOnCc = '';
+    orderFormData.unitNumber = 1;
 
     this.setState({
       orderFormData: orderFormData,
     });
   }
 
-  processChange (event) {
+  processChange(event) {
     const field = event.target.name;
     const orderFormData = this.state.orderFormData;
     orderFormData[field] = event.target.value;
+
+    orderFormData.totalPrice =
+      ((orderFormData.quantity / orderFormData.unitNumber) * orderFormData.unitPrice).toFixed(2);
 
     this.setState({
       orderFormData
     });
   }
 
-  submitForm () {
+  submitForm() {
 
   }
 
@@ -87,7 +91,7 @@ class NewOrder extends Component {
         <Row>
           <Col xs="1s2" sm="6">
             <Card>
-                <CardHeader>Hello World!</CardHeader>
+              <CardHeader>Hello World!</CardHeader>
               <CardBody>This is where we will have information on the purchase order</CardBody>
 
             </Card>
@@ -102,46 +106,48 @@ class NewOrder extends Component {
                   <CardBody>
                     <FormGroup>
                       <Label htmlFor="purchaseOrderNumber">Purchase Order Number</Label>
-                      <Input type="text" id={"purchaseOrderNumber"} placeholder={this.state.orderFormData.purchaseOrderNumber} disabled />
+                      <Input type="text" id={"purchaseOrderNumber"}
+                             placeholder={this.state.orderFormData.purchaseOrderNumber} disabled/>
                     </FormGroup>
                     <FormGroup>
                       <Label htmlFor={"date"}>Date</Label>
                       <Input type={"date"} id={"date"} name={"date"}
                              value={this.state.orderFormData.date}
-                             onChange={this.processChange} />
+                             onChange={this.processChange}/>
                     </FormGroup>
 
                     <FormGroup>
                       <Label htmlFor={"rsrnDept"}>RSRN Dept.</Label>
                       <Input type={"text"} id={"rsrnDept"} name={"rsrnDept"} placeholder={"RSRN Dept."}
                              value={this.state.orderFormData.rsrnDept}
-                             onChange={this.processChange} />
+                             onChange={this.processChange}/>
                     </FormGroup>
 
                     <FormGroup>
                       <Label htmlFor={"company"}>Company/Supplier</Label>
                       <Input type={"text"} id={"company"} name={"company"} placeholder={"Company/Supplier"}
                              value={this.state.orderFormData.company}
-                             onChange={this.processChange} />
+                             onChange={this.processChange}/>
                     </FormGroup>
                     <FormGroup>
-                    <Label htmlFor={"paidOnCc"}>Paid on C/C</Label>
-                    <Input type={"text"} id={"paidOnCc"} name={"paidOnCc"} placeholder={"Paid on C/C"}
-                           value={this.state.orderFormData.paidOnCc}
-                           onChange={this.processChange} />
-                  </FormGroup>
+                      <Label htmlFor={"paidOnCc"}>Paid on C/C</Label>
+                      <Input type={"text"} id={"paidOnCc"} name={"paidOnCc"} placeholder={"Paid on C/C"}
+                             value={this.state.orderFormData.paidOnCc}
+                             onChange={this.processChange}/>
+                    </FormGroup>
                     <FormGroup>
-                    <Label htmlFor={"quantity"}>Quantity</Label>
-                    <Input type={"text"} id={"quantity"} name={"quantity"} placeholder={"Quantity"}
-                           value={this.state.orderFormData.quantity}
-                           onChange={this.processChange} />
-                  </FormGroup>
+                      <Label htmlFor={"quantity"}>Quantity</Label>
+                      <Input type={"text"} id={"quantity"} name={"quantity"} placeholder={"Quantity"}
+                             value={this.state.orderFormData.quantity}
+                             onChange={this.processChange}/>
+                    </FormGroup>
                     <FormGroup>
-                    <Label htmlFor={"description"}>Description</Label>
-                    <Input type={"textarea"} id={"description"} name={"description"} placeholder={"Description..."} rows={"4"}
-                           value={this.state.orderFormData.description}
-                           onChange={this.processChange} />
-                  </FormGroup>
+                      <Label htmlFor={"description"}>Description</Label>
+                      <Input type={"textarea"} id={"description"} name={"description"} placeholder={"Description..."}
+                             rows={"4"}
+                             value={this.state.orderFormData.description}
+                             onChange={this.processChange}/>
+                    </FormGroup>
                     <FormGroup>
                       <Label htmlFor={"unitPrice"}>Unit Price</Label>
                       <Row>
@@ -153,16 +159,15 @@ class NewOrder extends Component {
                               </InputGroupAddon>
                               <Input type={"text"} id={"unitPrice"} name={"unitPrice"} placeholder={"00.00"}
                                      value={this.state.orderFormData.unitPrice}
-                                     onChange={this.processChange} />
+                                     onChange={this.processChange}/>
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for
                             </InputGroup>
                           </div>
                         </Col>
                         <Col md={"4"}>
-                              <Input type={"text"} id={"unitNumber"} name={"unitNumber"}
-                                     value={this.state.orderFormData.unitNumber}
-                                     onChange={this.processChange} />
-
+                          <Input type={"text"} id={"unitNumber"} name={"unitNumber"}
+                                 value={this.state.orderFormData.unitNumber}
+                                 onChange={this.processChange}/>
                         </Col>
                         <Col md={"2"}>
                           <div>units</div>
@@ -171,23 +176,25 @@ class NewOrder extends Component {
                     </FormGroup>
                     <FormGroup>
                       <Label htmlFor={"totalPrice"}>Total Price</Label>
-                          <div className={"controls"}>
-                            <InputGroup className="input-prepend">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>£</InputGroupText>
-                              </InputGroupAddon>
-                              <Input type={"text"} id={"totalPrice"} name={"totalPrice"} placeholder={"00.00"}
-                                     value={this.state.orderFormData.totalPrice}
-                                     onChange={this.processChange} />
-                            </InputGroup>
-                          </div>
+                      <div className={"controls"}>
+                        <InputGroup className="input-prepend">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>£</InputGroupText>
+                          </InputGroupAddon>
+                          <Input type={"text"} id={"totalPrice"} name={"totalPrice"} placeholder={"00.00"}
+                                 value={this.state.orderFormData.totalPrice}
+                                 onChange={this.processChange}/>
+                        </InputGroup>
+                      </div>
                     </FormGroup>
 
                   </CardBody>
                   <CardFooter className={"background-white"}>
-                    <Button type="submit" size="sm" color="primary" onClick={this.submitForm}><i className="fa fa-dot-circle-o" /> Submit</Button>
+                    <Button type="submit" size="sm" color="primary" onClick={this.submitForm}><i
+                      className="fa fa-dot-circle-o"/> Submit</Button>
                     &nbsp;
-                    <Button type="reset" size="sm" color="danger" onClick={this.resetPage}><i className="fa fa-ban" /> Reset</Button>
+                    <Button type="reset" size="sm" color="danger" onClick={this.resetPage}><i
+                      className="fa fa-ban"/> Reset</Button>
                   </CardFooter>
                 </Card>
               </CardHeader>
@@ -196,7 +203,7 @@ class NewOrder extends Component {
           </Col>
         </Row>
       </div>
-      )
+    )
   }
 }
 

@@ -11,7 +11,7 @@ const config = require('../config/config');
 const webpackConfig = require('../webpack.config');
 
 const isDev = process.env.NODE_ENV !== 'production';
-const port  = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 
 // Configuration
@@ -22,7 +22,7 @@ mongoose.connect(isDev ? config.db_dev : config.db);
 mongoose.Promise = global.Promise;
 
 const app = express();
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 // API routes

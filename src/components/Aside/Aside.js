@@ -25,20 +25,26 @@ class Aside extends Component {
       <aside className="aside-menu">
         <Nav tabs>
           <NavItem>
-            <NavLink className={classnames({ active: this.state.activeTab === '1' })}
-                     onClick={() => { this.toggle('1'); }}>
+            <NavLink className={classnames({active: this.state.activeTab === '1'})}
+                     onClick={() => {
+                       this.toggle('1');
+                     }}>
               <i className="icon-list"></i>
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink className={classnames({ active: this.state.activeTab === '2' })}
-                     onClick={() => { this.toggle('2'); }}>
+            <NavLink className={classnames({active: this.state.activeTab === '2'})}
+                     onClick={() => {
+                       this.toggle('2');
+                     }}>
               <i className="icon-speech"></i>
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink className={classnames({ active: this.state.activeTab === '3' })}
-                     onClick={() => { this.toggle('3'); }}>
+            <NavLink className={classnames({active: this.state.activeTab === '3'})}
+                     onClick={() => {
+                       this.toggle('3');
+                     }}>
               <i className="icon-settings"></i>
             </NavLink>
           </NavItem>

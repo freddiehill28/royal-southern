@@ -1,5 +1,19 @@
 import React, {Component} from 'react';
-import {Alert, Container, Row, Col, CardGroup, Card, CardBody, CardFooter, Button, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import {
+  Alert,
+  Container,
+  Row,
+  Col,
+  CardGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  Button,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
+} from 'reactstrap';
 
 import {HashRouter, Redirect, Route, Switch} from 'react-router-dom';
 import banner from './../../../../images/yachtClubLogo.png';
@@ -62,7 +76,7 @@ class Login extends Component {
   }
 
   onChange(event) {
-    if (event.key ==='Enter') {
+    if (event.key === 'Enter') {
       console.log("trying")
       this.login();
       return;
@@ -78,7 +92,7 @@ class Login extends Component {
   }
 
   trySubmit(event) {
-    if(event.key === 'Enter') {
+    if (event.key === 'Enter') {
       this.login(event);
       return;
     }
@@ -87,25 +101,24 @@ class Login extends Component {
   render() {
 
     if (this.state.signedIn) {
-      return (<Redirect push to='/' />);
+      return (<Redirect push to='/'/>);
     }
 
-    if(this.state.toRegister) {
-      return (<Redirect push to='/register' />);
+    if (this.state.toRegister) {
+      return (<Redirect push to='/register'/>);
     }
 
     let errors;
     if (this.state.errors.length > 0) {
       let errorList = [];
-      for (let i = 0; i < this.state.errors.length; i++)
-      {
+      for (let i = 0; i < this.state.errors.length; i++) {
         errorList.push(<p key={i}>{this.state.errors[i]}</p>)
       }
 
       errors = (
-          <Alert color="danger">
-            {errorList}
-          </Alert>
+        <Alert color="danger">
+          {errorList}
+        </Alert>
       )
     }
 
@@ -113,7 +126,7 @@ class Login extends Component {
       <div className="app flex-row align-items-center">
         <Container>
           <Row className="justify-content-center">
-            <img className={"large-spacer"} src={banner} />
+            <img className={"large-spacer"} src={banner}/>
             <Col md="8">
               <CardGroup>
                 <Card className="p-4">
@@ -126,7 +139,8 @@ class Login extends Component {
                           <i className="icon-user"/>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" name="email" placeholder="Email" value={this.state.signInData.email} onChange={this.onChange} onKeyPress={this.trySubmit}/>
+                      <Input type="text" name="email" placeholder="Email" value={this.state.signInData.email}
+                             onChange={this.onChange} onKeyPress={this.trySubmit}/>
                     </InputGroup>
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -134,7 +148,9 @@ class Login extends Component {
                           <i className="icon-lock"/>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" name="password" placeholder="Password" value={this.state.signInData.password} onChange={this.onChange} onKeyPress={this.trySubmit} />
+                      <Input type="password" name="password" placeholder="Password"
+                             value={this.state.signInData.password} onChange={this.onChange}
+                             onKeyPress={this.trySubmit}/>
                     </InputGroup>
                     {errors}
                     <Row>
@@ -151,7 +167,7 @@ class Login extends Component {
                     </Row>
                   </CardBody>
                 </Card>
-                <Card className="text-white primary-colour py-5" style={{ width: 44 + '%' }}>
+                <Card className="text-white primary-colour py-5" style={{width: 44 + '%'}}>
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up</h2>

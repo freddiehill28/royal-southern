@@ -18,7 +18,7 @@ export default {
       url: '/purchase-order',
       icon: 'icon-docs',
       children: [
-        ,{
+        , {
           name: 'My Orders',
           url: '/purchase-order/mine',
           icon: 'icon-doc'

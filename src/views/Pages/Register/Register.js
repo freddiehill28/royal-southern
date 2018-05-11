@@ -1,5 +1,18 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, CardBody, CardFooter, Button, Input, InputGroup, InputGroupAddon, InputGroupText, Alert} from 'reactstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardFooter,
+  Button,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Alert
+} from 'reactstrap';
 import 'whatwg-fetch';
 import {HashRouter, Redirect, Route, Link, Switch} from 'react-router-dom';
 import savingSvg from '../../../../images/svg/saving.svg';
@@ -36,7 +49,7 @@ class Register extends Component {
     this.submitForm = this.submitForm.bind(this);
   }
 
-  processChange (event) {
+  processChange(event) {
     const field = event.target.name;
     const user = this.state.user;
     user[field] = event.target.value;
@@ -46,7 +59,7 @@ class Register extends Component {
     });
   }
 
-  submitForm (event) {
+  submitForm(event) {
     const user = this.state.user;
 
     this.setState({
@@ -56,20 +69,26 @@ class Register extends Component {
     if (!user.firstName || !user.surname) {
       let error = [];
       error.push('Error: Please enter both first name and surname.');
-      this.setState({errors: error,
-        waitingForServer: false,})
+      this.setState({
+        errors: error,
+        waitingForServer: false,
+      })
     }
     else if (!validateEmail(user.email)) {
       let error = [];
       error.push('Error: Please enter a valid email address.');
-      this.setState({errors: error,
-        waitingForServer: false,})
+      this.setState({
+        errors: error,
+        waitingForServer: false,
+      })
     }
     else if (user.password !== user.repeatPassword) {
       let error = [];
       error.push('Error: Passwords do not match!');
-      this.setState({errors: error,
-        waitingForServer: false,})
+      this.setState({
+        errors: error,
+        waitingForServer: false,
+      })
     }
     else if (!validatePassword(user.password)) {
       console.log(validatePassword(user.password));
@@ -79,9 +98,11 @@ class Register extends Component {
       error.push("•	Contain 1 or more upper case letters");
       error.push("•	Contain 1 or more lower case letters");
       error.push("•	Contain 1 or more numbers");
-      this.setState({errors: error,
+      this.setState({
+        errors: error,
 
-        waitingForServer: false,})
+        waitingForServer: false,
+      })
     }
     else {
       fetch('/api/account/signup', {
@@ -136,7 +157,8 @@ class Register extends Component {
                     </Row>
                     <Row>
                       <Alert color="success">
-                        Account created successfully; <Link to="/login" className="alert-link">login here</Link>. Or create <Link to={"/register"} className="alert-link">another account.</Link>
+                        Account created successfully; <Link to="/login" className="alert-link">login here</Link>. Or
+                        create <Link to={"/register"} className="alert-link">another account.</Link>
                       </Alert>
                     </Row>
                   </CardBody>
@@ -152,17 +174,16 @@ class Register extends Component {
 
     if (this.state.errors.length > 0) {
       let errorList = [];
-      for (let i = 0; i < this.state.errors.length; i++)
-      {
+      for (let i = 0; i < this.state.errors.length; i++) {
         errorList.push(<p key={i}>{this.state.errors[i]}</p>)
       }
 
       errorsMarkup = (
         <CardFooter className="p-4">
 
-            <Alert color="danger">
-              {errorList}
-            </Alert>
+          <Alert color="danger">
+            {errorList}
+          </Alert>
 
         </CardFooter>
       )
@@ -190,7 +211,8 @@ class Register extends Component {
                         <i className="icon-user"/>
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input type="text" name={"firstName"} placeholder="First Name" value={this.state.user.firstName} onChange={this.processChange}/>
+                    <Input type="text" name={"firstName"} placeholder="First Name" value={this.state.user.firstName}
+                           onChange={this.processChange}/>
                   </InputGroup>
                   <InputGroup className="mb-3">
                     <InputGroupAddon addonType="prepend">
@@ -198,13 +220,15 @@ class Register extends Component {
                         <i className="icon-user"/>
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input type="text" name={"surname"} placeholder="Surname" value={this.state.user.surname} onChange={this.processChange}/>
+                    <Input type="text" name={"surname"} placeholder="Surname" value={this.state.user.surname}
+                           onChange={this.processChange}/>
                   </InputGroup>
                   <InputGroup className="mb-3">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>@</InputGroupText>
                     </InputGroupAddon>
-                    <Input type="text" name={"email"} placeholder="Email" value={this.state.user.email} onChange={this.processChange}/>
+                    <Input type="text" name={"email"} placeholder="Email" value={this.state.user.email}
+                           onChange={this.processChange}/>
                   </InputGroup>
                   <InputGroup className="mb-3">
                     <InputGroupAddon addonType="prepend">
@@ -212,7 +236,8 @@ class Register extends Component {
                         <i className="icon-lock"/>
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input type="password" name={"password"} placeholder="Password" value={this.state.user.password} onChange={this.processChange}/>
+                    <Input type="password" name={"password"} placeholder="Password" value={this.state.user.password}
+                           onChange={this.processChange}/>
                   </InputGroup>
                   <InputGroup className="mb-4">
                     <InputGroupAddon addonType="prepend">
@@ -220,10 +245,13 @@ class Register extends Component {
                         <i className="icon-lock"/>
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input type="password" name={"repeatPassword"} placeholder="Repeat password" value={this.state.user.repeatPassword} onChange={this.processChange}/>
+                    <Input type="password" name={"repeatPassword"} placeholder="Repeat password"
+                           value={this.state.user.repeatPassword} onChange={this.processChange}/>
                   </InputGroup>
-                  {this.state.waitingForServer && <Button className="mt-3 button-colour" block><img src={savingSvg}/></Button>}
-                  {!this.state.waitingForServer && <Button className="mt-3 button-colour" block onClick={this.submitForm}>Create Account</Button>}
+                  {this.state.waitingForServer &&
+                  <Button className="mt-3 button-colour" block><img src={savingSvg}/></Button>}
+                  {!this.state.waitingForServer &&
+                  <Button className="mt-3 button-colour" block onClick={this.submitForm}>Create Account</Button>}
                 </CardBody>
                 {errorsMarkup}
               </Card>

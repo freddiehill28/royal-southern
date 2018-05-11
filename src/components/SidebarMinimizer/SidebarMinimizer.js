@@ -12,7 +12,10 @@ class SidebarMinimizer extends Component {
 
   render() {
     return (
-      <button className="sidebar-minimizer" type="button" onClick={(event) => { this.sidebarMinimize(); this.brandMinimize() }}></button>
+      <button className="sidebar-minimizer" type="button" onClick={(event) => {
+        this.sidebarMinimize();
+        this.brandMinimize()
+      }}></button>
     )
   }
 }
