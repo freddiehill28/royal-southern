@@ -28,7 +28,7 @@ import Auth from './modules/Auth'
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (
-    Auth.isUserAuthenticated()
+    Auth.isTokenPresent()
       ? <Component {...props} />
       : <Redirect to='/login'/>
   )}/>

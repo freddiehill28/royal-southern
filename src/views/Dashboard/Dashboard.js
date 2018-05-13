@@ -428,25 +428,26 @@ class Dashboard extends Component {
       radioSelected: 2,
       invalidUser: false,
       loading: true,
+      userData: {},
     };
   }
 
   componentDidMount() {
-    fetch('/api/account/verify?token=' + localStorage.getItem('token'))
-      .then(res => res.json())
-      .then(json => {
-        if (!json.success) {
-          Auth.deauthenticateUser();
+    Auth.isUserAuthenticated().then(
+      (ret) => {
+        if (ret) {
           this.setState({
-            invalidUser: true
-          })
+            loading: false,
+            userData: ret,
+          });
         }
         else {
           this.setState({
-            loading: false
-          })
+            invalidUser: true
+          });
         }
-      });
+      }
+    )
   }
 
   toggle() {
@@ -464,7 +465,7 @@ class Dashboard extends Component {
   render() {
 
     if (this.state.invalidUser) {
-      return (<Redirect push to='/'/>);
+      return (<Redirect push to='/login'/>);
     }
 
     if (this.state.loading) {

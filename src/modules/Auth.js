@@ -15,6 +15,23 @@ class Auth {
    * @returns {boolean}
    */
   static isUserAuthenticated() {
+    return new Promise ((ret) => {
+        fetch('/api/account/verify?token=' + localStorage.getItem('token'))
+          .then(res => res.json())
+          .then(json => {
+            if (!json.success) {
+              this.deauthenticateUser();
+              ret(Promise.resolve(false))
+            }
+            else {
+              ret(Promise.resolve(json.userData))
+            }
+          });
+      }
+    )
+  }
+
+  static isTokenPresent() {
     return localStorage.getItem('token') !== null;
   }
 

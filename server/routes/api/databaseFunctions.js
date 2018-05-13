@@ -1,5 +1,7 @@
 const User = require('../../models/User');
 const UserSession = require('../../models/UserSession');
+const PurchaseOrder = require('../../models/PurchaseOrder');
+const PurchaseOrderNumbers = require('../../models/PurchaseOrderNumbers')
 
 module.exports = (app) => {
 
@@ -62,6 +64,7 @@ module.exports = (app) => {
       newUser.password = newUser.generateHash(password);
       newUser.firstName = firstName;
       newUser.surname = surname;
+      newUser.alias = (firstName[0] + surname[0] + surname[1] + surname[2]).toUpperCase();
 
       newUser.save ((err, user) => {
         if(err) {
@@ -192,12 +195,84 @@ module.exports = (app) => {
           message: 'Error: Invalid'
         });
       } else {
-        // DO ACTION
-        return res.send({
-          success: true,
-          message: 'Good'
+        User.findOne({
+          _id: sessions[0].userId
+        }, (err, userData) => {
+          if (err) {
+            return res.send({
+              success: false,
+              message: 'Error: No registered user',
+            });
+          }
+          else {
+            return res.send({
+              success: true,
+              message: 'Good',
+              userData: userData,
+            });
+          }
         });
       }
     });
+  });
+
+
+  // Save Order
+  app.post('/api/purchaseOrder/new', (req, res, next) => {
+    const {body} = req;
+
+    console.log(body);
+
+    const newPurchaseOrder = new PurchaseOrder();
+
+    newPurchaseOrder.orderFormData = body.orderFormData;
+
+    newPurchaseOrder.save((err, doc) => {
+      if (err) {
+        console.log(err);
+        return res.send({
+          success: false,
+          message: 'Error: server error'
+        });
+      }
+      return res.send({
+        success: true,
+        message: 'Purchase Order saved!'
+      });
+    })
+  });
+
+  // Gets the latest purchase order, and adds 1 to the number stored
+  app.get('/api/purchaseOrder/number', (req, res, next) => {
+    PurchaseOrderNumbers.findOne().sort('-purchaseOrderNumber').exec(
+      (err, sessions) => {
+        if (err) {
+          console.log(err);
+          return res.send({
+            success: false,
+            message: "Internal server error",
+          })
+        }
+        else {
+          const purchaseOrderNumbers = new PurchaseOrderNumbers();
+          purchaseOrderNumbers.purchaseOrderNumber = sessions.purchaseOrderNumber + 1;
+          purchaseOrderNumbers.save((err, doc) => {
+            if (err) {
+              console.log(err);
+              return res.send({
+                success: false,
+                message: "Internal server error",
+              })
+            }
+            else {
+              return res.send({
+                success: true,
+                message: sessions.purchaseOrderNumber,
+              })
+            }
+          })
+        }
+      }
+    );
   });
 };
