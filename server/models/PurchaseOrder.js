@@ -8,6 +8,8 @@ const PurchaseOrderSchema = new mongoose.Schema({
     rsrnDept: {type: String},
     company: {type: String},
     paidOnCc: {type: String},
+    status: {type: String, default: 'Pending'},
+    onCcBill: {type: Boolean, default: false},
     items: [{
       quantity: {type: String},
       description: {type: String},
