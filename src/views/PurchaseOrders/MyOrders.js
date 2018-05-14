@@ -28,14 +28,36 @@ class MyOrders extends Component {
   }
   render() {
     return (
-      <div className="animated fadeIn">
+      <div className="animated fadeIn height-100">
         <Card>
           <CardHeader>
             <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(0)} aria-expanded={this.state.accordion[0]}>
-              Item #{1}
+              Pending Orders
             </Button>
           </CardHeader>
           <Collapse isOpen={this.state.accordion[0]} data-parent="#accordion" id="collapseOne" aria-labelledby="headingOne">
+            <CardBody>
+            </CardBody>
+          </Collapse>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(1)} aria-expanded={this.state.accordion[1]}>
+              Approved Orders
+            </Button>
+          </CardHeader>
+          <Collapse isOpen={this.state.accordion[1]} data-parent="#accordion" id="collapseOne" aria-labelledby="headingOne">
+            <CardBody>
+            </CardBody>
+          </Collapse>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(2)} aria-expanded={this.state.accordion[2]}>
+              Closed Orders
+            </Button>
+          </CardHeader>
+          <Collapse isOpen={this.state.accordion[2]} data-parent="#accordion" id="collapseOne" aria-labelledby="headingOne">
             <CardBody>
             </CardBody>
           </Collapse>
