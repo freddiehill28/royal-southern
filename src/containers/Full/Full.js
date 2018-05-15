@@ -13,6 +13,7 @@ import Dashboard from '../../views/Dashboard/';
 import NewOrder from '../../views/PurchaseOrders/NewOrder';
 import SearchOrder from '../../views/PurchaseOrders/SearchOrder';
 import MyOrders from "../../views/PurchaseOrders/MyOrders";
+import ViewSingleOrder from "../../views/PurchaseOrders/ViewSingleOrder";
 
 class Full extends Component {
   render() {
@@ -29,6 +30,9 @@ class Full extends Component {
                 <Route path="/purchase-order/mine" name="My Orders" component={MyOrders}/>
                 <Route path="/purchase-order/new" name="New Purchase Order" component={NewOrder}/>
                 <Route path="/purchase-order/find" name="Find Purchase Order" component={SearchOrder}/>
+
+                <Route exact path="/purchase-order/:uid/:origin" name="View Purchase Order" component={ViewSingleOrder}/>
+
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
             </Container>

@@ -4,6 +4,6 @@ const routes = {
   '/purchase-order/mine': 'Mine',
   '/purchase-order/new': 'New',
   '/purchase-order/find': 'Find',
-  '/dashboard': 'Dashboard'
+    '/dashboard': 'Dashboard'
 };
 export default routes;

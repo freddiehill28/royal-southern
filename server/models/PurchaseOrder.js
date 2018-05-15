@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const PurchaseOrderSchema = new mongoose.Schema({
     raisedBy: {type: String},
+    raisedById: {type: String},
     purchaseOrderNumber: {type: String},
     date: {type: Date},
     rsrnDept: {type: String},

@@ -226,12 +226,14 @@ module.exports = (app) => {
     const newPurchaseOrder = new PurchaseOrder();
 
     newPurchaseOrder.raisedBy = body.orderFormData.raisedBy;
+    newPurchaseOrder.raisedById = body.orderFormData.raisedById;
     newPurchaseOrder.purchaseOrderNumber = body.orderFormData.purchaseOrderNumber;
     newPurchaseOrder.date = body.orderFormData.date;
     newPurchaseOrder.rsrnDept = body.orderFormData.rsrnDept;
     newPurchaseOrder.company = body.orderFormData.company;
     newPurchaseOrder.paidOnCc = body.orderFormData.paidOnCc;
     newPurchaseOrder.items = body.orderFormData.items;
+
 
     newPurchaseOrder.save((err, doc) => {
       if (err) {

@@ -4,10 +4,11 @@ import {
   FormGroup, Label, Input, Row, Button, InputGroupAddon, InputGroupText, InputGroup, Collapse, Table, Badge
 } from 'reactstrap';
 import 'whatwg-fetch';
-import PurchaseOrders from '../../modules/PurchaseOrders';
+import PurchaseOrders from '../../modules/PurchaseOrderRepo';
 import Auth from "../../modules/Auth";
 import savingSvg from '../../../images/svg/saving.svg'
 import banner from '../../../images/yachtClubLogo.png'
+import {Redirect} from 'react-router-dom';
 
 class MyOrders extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class MyOrders extends Component {
       popoverOpen: false,
       loading: true,
       purchaseOrders: {},
+      linkId: '',
     };
 
     this.search = this.search.bind(this);
@@ -98,7 +100,9 @@ class MyOrders extends Component {
   }
 
   openOrder (event) {
-    console.log(event)
+    this.setState({
+      linkId: event,
+    })
   }
 
   render() {
@@ -117,6 +121,10 @@ class MyOrders extends Component {
           </Container>
         </div>
       )
+    }
+
+    if (this.state.linkId) {
+      return (<Redirect push to={'/purchase-order/' + this.state.linkId + '/mine'} />)
     }
 
     let pendingOrders = [];

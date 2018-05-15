@@ -4,11 +4,12 @@ import {
   FormGroup, Label, Input, Row, Button, InputGroupAddon, InputGroupText, InputGroup, Collapse
 } from 'reactstrap';
 import 'whatwg-fetch';
-import PurchaseOrders from '../../modules/PurchaseOrders';
+import PurchaseOrders from '../../modules/PurchaseOrderRepo';
 import ValidatePurchaseOrder from '../../modules/ValidatePurchaseOrder';
 import Auth from "../../modules/Auth";
 import savingSvg from '../../../images/svg/saving.svg'
 import banner from '../../../images/yachtClubLogo.png'
+import {Redirect} from 'react-router-dom';
 
 class NewOrder extends Component {
   constructor(props) {
@@ -206,6 +207,7 @@ class NewOrder extends Component {
 
     let orderFormData = this.state.orderFormData;
     orderFormData.raisedBy = (this.state.userData.firstName + " " + this.state.userData.surname);
+    orderFormData.raisedById = this.state.userData._id;
 
     if (validation.success) {
       PurchaseOrders.saveOrder(orderFormData).then((ret) => {
