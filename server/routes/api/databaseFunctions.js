@@ -290,7 +290,7 @@ module.exports = (app) => {
 
     PurchaseOrder.find({
       'raisedBy': name,
-    }, (err, sessions) => {
+    }, (err, order) => {
       if (err) {
         console.log(err);
         return res.send({
@@ -301,9 +301,97 @@ module.exports = (app) => {
       else {
         return res.send({
           success: true,
-          message: sessions,
+          message: order,
         })
       }
     });
+  });
+
+  app.get('/api/purchaseOrder/id', (req, res, next) => {
+    const { query } = req;
+    const { id } = query;
+
+    PurchaseOrder.findOne({
+      '_id': id,
+    }, (err, order) => {
+      if (err) {
+        console.log(err);
+        return res.send({
+          success: false,
+          message: 'Error: Server error'
+        });
+      }
+      else {
+        return res.send({
+          success: true,
+          message: order,
+        })
+      }
+    });
+  });
+
+  app.put('/api/purchaseOrder/update', (req, res, next) => {
+    const { query } = req;
+    const { id } = query;
+    const { body } = req;
+
+    console.log(req)
+
+    PurchaseOrder.findOne({
+      '_id': id,
+    }, (err, order) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: "Error: Purchase order doesn't exist"
+        });
+      }
+      else {
+        order.date = body.orderFormData.date;
+        order.rsrnDept = body.orderFormData.rsrnDept;
+        order.company = body.orderFormData.company;
+        order.paidOnCc = body.orderFormData.paidOnCc;
+        order.items = body.orderFormData.items;
+        order.status = body.orderFormData.status;
+        order.onCcBill = body.orderFormData.onCcBill;
+        order.completed = body.orderFormData.completed;
+
+        order.save((err, updateOrder) => {
+          if (err) {
+            return res.send({
+              success: false,
+              message: 'Error: Server error'
+            });
+          }
+          else {
+            return res.send({
+              success: true,
+              message: updateOrder,
+            })
+          }
+        })
+      }
+    });
+  });
+
+  app.delete('/api/purchaseOrder/delete', (req, res, next) => {
+    const { query } = req;
+    const { id } = query;
+
+    PurchaseOrder.findOne({
+      '_id': id,
+    }).remove().exec((err) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: "Error: Server error"
+        });
+      }
+      else {
+        return res.send({
+          success: true
+        })
+      }
+    })
   });
 };

@@ -29,7 +29,7 @@ class MyOrders extends Component {
     this.toggleAccordion = this.toggleAccordion.bind(this);
     this.trySearch = this.trySearch.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.toggle = this.toggle.bind(this);
+    this.togglePopover = this.togglePopover.bind(this);
   }
 
   componentDidMount () {
@@ -93,7 +93,7 @@ class MyOrders extends Component {
     })
   }
 
-  toggle (event) {
+  togglePopover (event) {
     this.setState({
       popoverOpen: !this.state.popoverOpen,
     });
@@ -193,8 +193,8 @@ class MyOrders extends Component {
               <InputGroup className="mb-4">
                 <Input type="text" name="searchPending" placeholder="Search" id={"searchPending"}
                        value={this.state.searchPending} onChange={this.onChange}
-                       onKeyPress={this.trySearch} onClick={this.toggle}/>
-                <Popover placement="bottom" isOpen={this.state.popoverOpen} target="searchPending" toggle={this.toggle}>
+                       onKeyPress={this.trySearch} onClick={this.togglePopover}/>
+                <Popover placement="bottom" isOpen={this.state.popoverOpen} target="searchPending" toggle={this.togglePopover}>
                   <PopoverHeader>Search Help</PopoverHeader>
                   <PopoverBody>You can search orders using order numbers, account alias, or using the name of the peson who raised the order.</PopoverBody>
                 </Popover>
