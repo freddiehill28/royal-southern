@@ -225,7 +225,13 @@ module.exports = (app) => {
 
     const newPurchaseOrder = new PurchaseOrder();
 
-    newPurchaseOrder.orderFormData = body.orderFormData;
+    newPurchaseOrder.raisedBy = body.orderFormData.raisedBy;
+    newPurchaseOrder.purchaseOrderNumber = body.orderFormData.purchaseOrderNumber;
+    newPurchaseOrder.date = body.orderFormData.date;
+    newPurchaseOrder.rsrnDept = body.orderFormData.rsrnDept;
+    newPurchaseOrder.company = body.orderFormData.company;
+    newPurchaseOrder.paidOnCc = body.orderFormData.paidOnCc;
+    newPurchaseOrder.items = body.orderFormData.items;
 
     newPurchaseOrder.save((err, doc) => {
       if (err) {
@@ -274,5 +280,28 @@ module.exports = (app) => {
         }
       }
     );
+  });
+
+  app.get('/api/purchaseOrder/name', (req, res, next) => {
+    const { query } = req;
+    const { name } = query;
+
+    PurchaseOrder.find({
+      'raisedBy': name,
+    }, (err, sessions) => {
+      if (err) {
+        console.log(err);
+        return res.send({
+          success: false,
+          message: 'Error: Server error'
+        });
+      }
+      else {
+        return res.send({
+          success: true,
+          message: sessions,
+        })
+      }
+    });
   });
 };

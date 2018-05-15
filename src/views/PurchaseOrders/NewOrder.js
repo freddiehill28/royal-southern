@@ -205,7 +205,7 @@ class NewOrder extends Component {
     const validation = ValidatePurchaseOrder.isValid(this.state.orderFormData);
 
     let orderFormData = this.state.orderFormData;
-    orderFormData.raisedById = this.state.userData._id;
+    orderFormData.raisedBy = (this.state.userData.firstName + " " + this.state.userData.surname);
 
     if (validation.success) {
       PurchaseOrders.saveOrder(orderFormData).then((ret) => {

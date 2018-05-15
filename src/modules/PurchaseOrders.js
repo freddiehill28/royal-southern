@@ -38,6 +38,21 @@ class PurchaseOrders {
       )
     })
   }
+
+  static getAllForName (name) {
+    return new Promise ((ret) => {
+      fetch('/api/purchaseOrder/name/?name='+name)
+        .then(res => res.json())
+        .then(json => {
+          if (!json.success) {
+            ret(Promise.resolve(false))
+          }
+          else {
+            ret(Promise.resolve(json.message))
+          }
+        })
+    })
+  }
 }
 
 export default PurchaseOrders;

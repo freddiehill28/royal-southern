@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const PurchaseOrderSchema = new mongoose.Schema({
-  orderFormData: {
-    raisedById: {type: String},
+    raisedBy: {type: String},
     purchaseOrderNumber: {type: String},
     date: {type: Date},
     rsrnDept: {type: String},
@@ -17,7 +16,6 @@ const PurchaseOrderSchema = new mongoose.Schema({
       unitPrice: {type: String},
       unitNumber: {type: String},
     }],
-  }
 });
 
 module.exports = mongoose.model('PurchaseOrder', PurchaseOrderSchema);
