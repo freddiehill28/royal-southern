@@ -92,6 +92,21 @@ class PurchaseOrders {
         });
     })
   }
+
+  static getAllOrders () {
+    return new Promise ((ret) => {
+      fetch('/api/purchaseOrder/all')
+        .then(res => res.json())
+        .then(json => {
+          if (!json.success) {
+            ret(Promise.resolve(false));
+          }
+          else {
+            ret(Promise.resolve(json.message));
+          }
+        })
+    })
+  }
 }
 
 export default PurchaseOrders;

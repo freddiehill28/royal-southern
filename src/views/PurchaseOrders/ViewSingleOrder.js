@@ -3,7 +3,7 @@ import {
   Card, CardBody, CardHeader, CardFooter, Col, Alert, Container, Popover, PopoverBody, PopoverHeader,
   FormGroup, Label, Input, Row, Button, InputGroupAddon, InputGroupText, InputGroup, Collapse, Table, Badge
 } from 'reactstrap';
-import PurchaseOrders from "../../modules/PurchaseOrderRepo";
+import PurchaseOrders from "../../modules/Repositories/PurchaseOrderRepo";
 import Auth from "../../modules/Auth";
 import savingSvg from '../../../images/svg/saving.svg';
 import banner from '../../../images/yachtClubLogo.png';
@@ -230,8 +230,6 @@ class ViewSingleOrder extends Component {
   }
 
   render() {
-    console.log(this.state)
-
     if (this.state.invalidUser) {
       return (<Redirect push to='/login'/>);
     }

@@ -4,7 +4,7 @@ import {
   FormGroup, Label, Input, Row, Button, InputGroupAddon, InputGroupText, InputGroup, Collapse
 } from 'reactstrap';
 import 'whatwg-fetch';
-import PurchaseOrders from '../../modules/PurchaseOrderRepo';
+import PurchaseOrders from '../../modules/Repositories/PurchaseOrderRepo';
 import ValidatePurchaseOrder from '../../modules/ValidatePurchaseOrder';
 import Auth from "../../modules/Auth";
 import savingSvg from '../../../images/svg/saving.svg'
@@ -389,9 +389,51 @@ class NewOrder extends Component {
         <Row>
           <Col xs="1s2" sm="6">
             <Card>
-              <CardHeader>Hello World!</CardHeader>
-              <CardBody>This is where we will have information on the purchase order</CardBody>
+              <CardHeader>
+                <strong>Guidance </strong>
+                <small>Filling out a purchase order</small>
+              </CardHeader>
+              <CardBody>
+                <Label><strong>Purchase Order Number</strong></Label>
+                <p>The purchase order number is pre-populated when you load the form. The number is a combination of your personal alias an a sequential number.</p>
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Date</strong></Label>
+                <p>The purchase order number is pre-populated With todays date, but feel free to change this if you need to backdate a purchase order.</p>
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>RSRN Department</strong></Label>
+                <p>This is simply the department that you work in. Ordering pens for your admin work, then you work in administration!</p>
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Company or Supplier</strong></Label>
+                <p>Who are you buying your pens from? Their name goes here!</p>
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Paid on CC</strong></Label>
+                <p>Which Credit Card did you complete your purchase on? Don't worry, if you haven't made the purchase yet then just leave this blank until later.</p>
 
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Items</strong></Label>
+
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Quantity</strong></Label>
+                <p>How many of the item are you purchasing?</p>
+
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Description</strong></Label>
+                <p>Please give a brief description of what you are purchasing here.</p>
+
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Unit price & units</strong></Label>
+                <p>This is the price for a number of units. In the left hand box you enter the price, and in the left the number of units you would get for that price.</p>
+                <p>For example I may be purchasing 20 pens, but I buy them in packs of 10 for £5, so my unit price would be £5 and my unit number would be 10!</p>
+
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Total price</strong></Label>
+                <p>The total price is worked out for you from your quantity, unit price, and unit number. If the calculation is incorrect for whatever reason then you have full control to change this box.</p>
+
+                <hr className="my-2 secondary-colour" />
+                <Label><strong>Additional items or Postage</strong></Label>
+                <p>If you would like to add another item then hit the 'Add Item' button and the form will have extra fields for you.</p>
+                <p>To add postage to the order please raise this as an additional item with the description 'Postage'.</p>
+              </CardBody>
             </Card>
           </Col>
           <Col xs={"12"} sm={"6"}>
@@ -414,14 +456,12 @@ class NewOrder extends Component {
                              value={this.state.orderFormData.date}
                              onChange={this.processFormChange}/>
                     </FormGroup>
-
                     <FormGroup>
                       <Label htmlFor={"rsrnDept"}>RSRN Dept.</Label>
                       <Input type={"text"} id={"rsrnDept"} name={"rsrnDept"} placeholder={"RSRN Dept."}
                              value={this.state.orderFormData.rsrnDept}
                              onChange={this.processFormChange}/>
                     </FormGroup>
-
                     <FormGroup>
                       <Label htmlFor={"company"}>Company/Supplier</Label>
                       <Input type={"text"} id={"company"} name={"company"} placeholder={"Company/Supplier"}

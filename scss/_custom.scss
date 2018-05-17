@@ -32,14 +32,25 @@
   max-height: 59vh;
 }
 
-.height-100 {
-
-}
-
 .text-center {
   text-align: center;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.split-screen {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.single-screen {
+  width: 50%;
+  height: 50%;
+  float: left;
+  padding: 20px;
+  background-color: #7D0F03;
+  color: #212759;
 }

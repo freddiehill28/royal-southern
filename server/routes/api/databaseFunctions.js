@@ -5,7 +5,8 @@ const PurchaseOrderNumbers = require('../../models/PurchaseOrderNumbers')
 
 module.exports = (app) => {
 
-  // Sign Up
+  // ACCOUNT
+
   app.post('/api/account/signup', (req, res, next) => {
     const { body } = req;
     const { password } = body;
@@ -216,12 +217,10 @@ module.exports = (app) => {
     });
   });
 
+  // PURCHASE ORDERS
 
-  // Save Order
   app.post('/api/purchaseOrder/new', (req, res, next) => {
     const {body} = req;
-
-    console.log(body);
 
     const newPurchaseOrder = new PurchaseOrder();
 
@@ -330,12 +329,28 @@ module.exports = (app) => {
     });
   });
 
+  app.get('/api/purchaseOrder/all', (req, res, next) => {
+    PurchaseOrder.find({}, (err, orders) => {
+      if (err){
+        console.log(err);
+        return res.send({
+          success: false,
+          message: 'Error: Server error'
+        });
+      }
+      else {
+        return res.send({
+          success: true,
+          message: orders,
+        })
+      }
+    });
+  });
+
   app.put('/api/purchaseOrder/update', (req, res, next) => {
     const { query } = req;
     const { id } = query;
     const { body } = req;
-
-    console.log(req)
 
     PurchaseOrder.findOne({
       '_id': id,
@@ -390,6 +405,101 @@ module.exports = (app) => {
       else {
         return res.send({
           success: true
+        })
+      }
+    })
+  });
+
+  // USERS
+
+  app.get('/api/users/all', (req, res, next) => {
+    User.find({}, (err, user) => {
+      if (err){
+        console.log(err);
+        return res.send({
+          success: false,
+          message: 'Error: Server error'
+        });
+      }
+      else {
+        return res.send({
+          success: true,
+          message: user,
+        })
+      }
+    });
+  });
+
+  app.put('/api/users/update', (req, res, next) => {
+    const { query } = req;
+    const { id } = query;
+    const { body } = req;
+
+    User.findOne({
+      '_id': id,
+    }, (err, user) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: "Error: Purchase order doesn't exist"
+        });
+      }
+      else {
+        user.firstName = body.user.firstName;
+        user.surname = body.user.surname;
+        user.alias = body.user.alias;
+        user.email = body.user.email;
+        user.password = body.user.password;
+        user.level = body.user.level;
+
+        user.save((err, updateUser) => {
+          if (err) {
+            return res.send({
+              success: false,
+              message: 'Error: Server error'
+            });
+          }
+          else {
+            return res.send({
+              success: true,
+              message: updateUser,
+            })
+          }
+        })
+      }
+    });
+  });
+
+  app.put('/api/users/changePassword', (req, res, next) => {
+    const { query } = req;
+    const { id } = query;
+    const { body } = req;
+
+    User.findOne({
+      '_id': id,
+    }, (err, user) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: "Error: Purchase order doesn't exist"
+        });
+      }
+      else {
+        user.password = user.generateHash(body.password);
+
+        user.save((err, updateUser) => {
+          if (err) {
+            return res.send({
+              success: false,
+              message: 'Error: Server error'
+            });
+          }
+          else {
+            return res.send({
+              success: true,
+              message: updateUser,
+            })
+          }
         })
       }
     })

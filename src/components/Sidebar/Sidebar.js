@@ -167,7 +167,7 @@ class Sidebar extends Component {
         <nav className="sidebar-nav">
           <Nav>
             {navList(nav.items)}
-            <NavItem className="mt-auto cursor-pointer">
+            <NavItem className="cursor-pointer">
               <RsNavLink className='nav-link nav-link-danger' active onClick={this.logout}>
                 <i className='icon-logout'/>Logout
               </RsNavLink>

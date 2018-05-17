@@ -34,6 +34,12 @@ export default {
           icon: 'icon-magnifier'
         }
       ]
+    },
+    {
+      name: 'Account Settings',
+      url: '/account-settings',
+      icon: 'icon-settings',
+      class: 'mt-auto',
     }
   ]
 };

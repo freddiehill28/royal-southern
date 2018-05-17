@@ -4,7 +4,6 @@ import {Container} from 'reactstrap';
 import Header from '../../components/Header/';
 import Sidebar from '../../components/Sidebar/';
 import Breadcrumb from '../../components/Breadcrumb/';
-import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/';
@@ -14,6 +13,9 @@ import NewOrder from '../../views/PurchaseOrders/NewOrder';
 import SearchOrder from '../../views/PurchaseOrders/SearchOrder';
 import MyOrders from "../../views/PurchaseOrders/MyOrders";
 import ViewSingleOrder from "../../views/PurchaseOrders/ViewSingleOrder";
+
+// Account Settings
+import AccountSettings from '../../views/Account/AccountSettings';
 
 class Full extends Component {
   render() {
@@ -33,11 +35,12 @@ class Full extends Component {
 
                 <Route exact path="/purchase-order/:uid/:origin" name="View Purchase Order" component={ViewSingleOrder}/>
 
+                <Route path="/account-settings" name="Account Settings" component={AccountSettings}/>
+
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
             </Container>
           </main>
-          <Aside/>
         </div>
         <Footer/>
       </div>

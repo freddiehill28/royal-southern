@@ -4,7 +4,7 @@ import {
   FormGroup, Label, Input, Row, Button, InputGroupAddon, InputGroupText, InputGroup, Collapse, Table, Badge
 } from 'reactstrap';
 import 'whatwg-fetch';
-import PurchaseOrders from '../../modules/PurchaseOrderRepo';
+import PurchaseOrders from '../../modules/Repositories/PurchaseOrderRepo';
 import Auth from "../../modules/Auth";
 import savingSvg from '../../../images/svg/saving.svg'
 import banner from '../../../images/yachtClubLogo.png'
@@ -138,6 +138,10 @@ class MyOrders extends Component {
       console.log(this.state.purchaseOrders[i]._id);
       if (this.state.purchaseOrders[i].status === 'Pending')
       {
+        if ((this.state.searchPending === '') ||
+          (this.state.purchaseOrders[i].purchaseOrderNumber.toLowerCase().includes(this.state.searchPending.toLowerCase()) ||
+            this.state.purchaseOrders[i].raisedBy.toLowerCase().includes(this.state.searchPending.toLowerCase())
+        ))
         pendingOrders.push(
           <tr className={"pointer"} key={this.state.purchaseOrders[i]._id} onClick={() => this.openOrder(this.state.purchaseOrders[i]._id)}>
             <td>{this.state.purchaseOrders[i].purchaseOrderNumber}</td>
@@ -152,6 +156,10 @@ class MyOrders extends Component {
       }
       else if (this.state.purchaseOrders[i].status === 'Approved')
       {
+        if ((this.state.searchApproved === '') ||
+          (this.state.purchaseOrders[i].purchaseOrderNumber.toLowerCase().includes(this.state.searchApproved.toLowerCase()) ||
+            this.state.purchaseOrders[i].raisedBy.toLowerCase().includes(this.state.searchApproved.toLowerCase())
+          ))
         approvedOrders.push(
           <tr className={"pointer"} key={this.state.purchaseOrders[i]._id} onClick={() => this.openOrder(this.state.purchaseOrders[i]._id)}>
             <td>{this.state.purchaseOrders[i].purchaseOrderNumber}</td>
@@ -166,6 +174,10 @@ class MyOrders extends Component {
       }
       else
       {
+        if ((this.state.searchClosed === '') ||
+          (this.state.purchaseOrders[i].purchaseOrderNumber.toLowerCase().includes(this.state.searchClosed.toLowerCase()) ||
+            this.state.purchaseOrders[i].raisedBy.toLowerCase().includes(this.state.searchClosed.toLowerCase())
+          ))
         closedOrders.push(
           <tr className={"pointer"} key={this.state.purchaseOrders[i]._id} onClick={() => this.openOrder(this.state.purchaseOrders[i]._id)}>
             <td>{this.state.purchaseOrders[i].purchaseOrderNumber}</td>
@@ -196,7 +208,7 @@ class MyOrders extends Component {
                        onKeyPress={this.trySearch} onClick={this.togglePopover}/>
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target="searchPending" toggle={this.togglePopover}>
                   <PopoverHeader>Search Help</PopoverHeader>
-                  <PopoverBody>You can search orders using order numbers, account alias, or using the name of the peson who raised the order.</PopoverBody>
+                  <PopoverBody>You can search orders using order numbers, account alias, or using the name of the person who raised the order.</PopoverBody>
                 </Popover>
                 <InputGroupAddon addonType="append">
                   <Button className="btn btn-default" type="submit" name="searchPending" onClick={this.search}><i className="icon-magnifier" />
