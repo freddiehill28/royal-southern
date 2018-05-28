@@ -214,16 +214,16 @@ class SearchOrder extends Component {
             </InputGroup>
             <Table responsive striped hover>
               <thead>
-              <tr>
-                <th>Order #</th>
-                <th>Date raised</th>
-                <th>Company</th>
-                <th># of items</th>
-                <th>Status</th>
-              </tr>
+                <tr>
+                  <th>Order #</th>
+                  <th>Date raised</th>
+                  <th>Company</th>
+                  <th># of items</th>
+                  <th>Status</th>
+                </tr>
               </thead>
               <tbody>
-              {orders}
+                {orders}
               </tbody>
             </Table>
             <Pagination>

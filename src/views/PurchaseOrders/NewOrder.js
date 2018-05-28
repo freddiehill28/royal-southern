@@ -71,7 +71,7 @@ class NewOrder extends Component {
             if (!ret) {
               console.log(ret);
               let errors = [];
-              errors.push("Error: Unable to get order number at this time")
+              errors.push("Error: Unable to get order number at this time");
               this.setState({
                 errors: errors,
                 loading: false,
@@ -380,7 +380,7 @@ class NewOrder extends Component {
     if (this.state.raisedOrder) {
       successAlert = (
         <Alert color={"success"}>
-        Order raised succesfully with order number {this.state.raisedOrder}
+        Order raised successfully with order number {this.state.raisedOrder}
       </Alert>)
     }
 

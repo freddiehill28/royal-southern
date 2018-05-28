@@ -131,8 +131,6 @@ class MyOrders extends Component {
     let approvedOrders = [];
     let closedOrders = [];
 
-
-    console.log(this.state)
     for (let i = 0; i < this.state.purchaseOrders.length; i++) {
       let date = new Date(this.state.purchaseOrders[i].date);
       console.log(this.state.purchaseOrders[i]._id);
