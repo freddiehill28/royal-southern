@@ -64,7 +64,7 @@ class ValidatePurchaseOrder {
 
   // TODO this validation doesnt work
   static has2MaxDecimalPlace(n) {
-    var re = /[0-9]+(\.[0-9][0-9]?)?/;
+    var re =  /^\s*\d+\.\d{2}\s*$/;
     return re.test(String(n));
   }
 }
