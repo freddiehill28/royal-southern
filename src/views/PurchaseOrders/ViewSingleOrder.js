@@ -320,7 +320,7 @@ class ViewSingleOrder extends Component {
                        onChange={this.processItemChange}/>
               </FormGroup>
               <FormGroup>
-                <Label htmlFor={"unitPrice"}>Unit Price</Label>
+                <Label htmlFor={"unitPrice"}>Price</Label>
                 <Row>
                   <Col md={"6"}>
                     <div className={"controls"}>

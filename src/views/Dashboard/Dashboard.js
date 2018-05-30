@@ -488,10 +488,10 @@ class Dashboard extends Component {
             <div className="display-3">Royal Southern App</div>
           </CardHeader>
           <CardBody>
-            <p className="lead">This is your new Royal Souther Application! At the moment we are just set up to process your purchase orders, but in the future you will see this space expand to include many of your Royal Southern Yacht Club processes.</p>
+            <p className="lead">This is your new Royal Southern application! At the moment we are just set up to process your purchase orders, but in the future you will see this space expand to include many of your Royal Southern Yacht Club processes.</p>
             <hr className="my-2 secondary-colour" />
-            <p>If you have any problems, or additions you would like to make, please contact Robert Morris at:</p>
-            <p className="lead">sailing.secretary@royal-southern.co.uk</p>
+            <p>If you have any problems, or additions you would like to make, please contact Mr Robert Morris at:</p>
+            <p className="lead">redacted.redacted@redacted.co.uk</p>
           </CardBody>
         </Card>
       </div>

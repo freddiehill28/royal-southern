@@ -316,7 +316,7 @@ class NewOrder extends Component {
                        onChange={this.processItemChange}/>
               </FormGroup>
               <FormGroup>
-                <Label htmlFor={"unitPrice"}>Unit Price</Label>
+                <Label htmlFor={"unitPrice"}>Price</Label>
                 <Row>
                   <Col md={"6"}>
                     <div className={"controls"}>
@@ -395,16 +395,16 @@ class NewOrder extends Component {
               </CardHeader>
               <CardBody>
                 <Label><strong>Purchase Order Number</strong></Label>
-                <p>The purchase order number is pre-populated when you load the form. The number is a combination of your personal alias an a sequential number.</p>
+                <p>The purchase order number is pre-populated when you load the form. The number is a combination of your personal alias and a sequential number.</p>
                 <hr className="my-2 secondary-colour" />
                 <Label><strong>Date</strong></Label>
-                <p>The purchase order number is pre-populated With todays date, but feel free to change this if you need to backdate a purchase order.</p>
+                <p>The purchase order number is pre-populated With today's date, but feel free to change this if you need to backdate a purchase order.</p>
                 <hr className="my-2 secondary-colour" />
                 <Label><strong>RSRN Department</strong></Label>
-                <p>This is simply the department that you work in. Ordering pens for your admin work, then you work in administration!</p>
+                <p>This is simply the department that you work in. Administration, and management are both examples of departments</p>
                 <hr className="my-2 secondary-colour" />
                 <Label><strong>Company or Supplier</strong></Label>
-                <p>Who are you buying your pens from? Their name goes here!</p>
+                <p>Who are you buying your pens from? The name of the company goes here.</p>
                 <hr className="my-2 secondary-colour" />
                 <Label><strong>Paid on CC</strong></Label>
                 <p>Which Credit Card did you complete your purchase on? Don't worry, if you haven't made the purchase yet then just leave this blank until later.</p>
@@ -423,7 +423,7 @@ class NewOrder extends Component {
                 <hr className="my-2 secondary-colour" />
                 <Label><strong>Unit price & units</strong></Label>
                 <p>This is the price for a number of units. In the left hand box you enter the price, and in the left the number of units you would get for that price.</p>
-                <p>For example I may be purchasing 20 pens, but I buy them in packs of 10 for £5, so my unit price would be £5 and my unit number would be 10!</p>
+                <p>For example you may be purchasing 20 pens, but you buy them in packs of 10 for £5, so the unit price would be £5 and my unit number would be 10.</p>
 
                 <hr className="my-2 secondary-colour" />
                 <Label><strong>Total price</strong></Label>

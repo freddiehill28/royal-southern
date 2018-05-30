@@ -83,9 +83,9 @@ class SearchOrder extends Component {
     })
   }
 
-  openOrder (event) {
+  openOrder (id) {
     this.setState({
-      linkId: event,
+      linkId: id,
     })
   }
 
@@ -145,9 +145,11 @@ class SearchOrder extends Component {
         badgeColor="secondary";
       }
 
+      let id = filteredOrders[i]._id;
+
       orders.push(
         <tr className={"pointer"} key={filteredOrders[i]._id}
-            onClick={() => this.openOrder(filteredOrders[i]._id)}>
+            onClick={() => this.openOrder(id)}>
           <td>{filteredOrders[i].purchaseOrderNumber}</td>
           <td>{date.toLocaleDateString('en-GB')}</td>
           <td>{filteredOrders[i].company}</td>
