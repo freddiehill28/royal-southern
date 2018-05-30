@@ -122,7 +122,8 @@ class AccountSettings extends Component {
       error.push('Error: Passwords do not match!');
       this.setState({
         errors: error
-      })
+      });
+      return;
     }
     else if (!validatePassword(this.state.changePassword.new)) {
       let error = [];
@@ -133,7 +134,8 @@ class AccountSettings extends Component {
       error.push("•	Contain 1 or more numbers");
       this.setState({
         errors: error
-      })
+      });
+      return;
     }
 
     fetch('api/account/signin', {

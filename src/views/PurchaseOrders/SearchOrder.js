@@ -90,8 +90,6 @@ class SearchOrder extends Component {
   }
 
   render() {
-    console.log(this.state.purchaseOrders);
-
     if (this.state.invalidUser) {
       return (<Redirect push to='/login'/>);
     }
@@ -126,17 +124,11 @@ class SearchOrder extends Component {
 
     let orders = [];
 
-    let numPages = Math.floor(filteredOrders.length/15);
-    numPages= Math.max(0, numPages-1);
+    let i = ((this.state.currentPaginationPage) * 15);
+    i = Math.max(0, i);
+    let end = Math.min(i+15, filteredOrders.length);
 
-    let startOrder = numPages * 15;
-
-    let endOrder = startOrder+15;
-    if (endOrder > filteredOrders.length) {
-      endOrder = filteredOrders.length;
-    }
-
-    for (let i = startOrder; i < endOrder; i++) {
+    for (i; i<end; i++) {
       let date = new Date(filteredOrders[i].date);
       let badgeColor;
 
@@ -164,11 +156,12 @@ class SearchOrder extends Component {
             <Badge color={badgeColor}>{filteredOrders[i].status}</Badge>
           </td>
         </tr>
-      )
+      );
     }
 
     let paginationStart = 0;
     let paginationItems = [];
+    let numPages = Math.floor(filteredOrders.length/15);
 
     if (numPages > 4) {
       paginationStart = this.state.currentPaginationPage-2;
